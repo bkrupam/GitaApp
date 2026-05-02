@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4000000000000000000000F /* GitaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3000000000000000000000B /* GitaAppApp.swift */; };
+		A5000000000000000000000A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3000000000000000000000C /* ContentView.swift */; };
+		B5000000000000000000000B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3000000000000000000000D /* CardView.swift */; };
+		C5000000000000000000000C /* CardFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3000000000000000000000E /* CardFrontView.swift */; };
+		D5000000000000000000000D /* CardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3000000000000000000000F /* CardBackView.swift */; };
+		E5000000000000000000000E /* VerseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4000000000000000000000A /* VerseModel.swift */; };
+		F5000000000000000000000F /* GitaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4000000000000000000000B /* GitaViewModel.swift */; };
+		A6000000000000000000000A /* verses.json in Resources */ = {isa = PBXBuildFile; fileRef = C4000000000000000000000C /* verses.json */; };
+		B6000000000000000000000B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4000000000000000000000D /* Assets.xcassets */; };
+		CA000000000000000000000A /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000000A /* Mood.swift */; };
+		CB000000000000000000000B /* CurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000000000000000000000B /* CurationService.swift */; };
+		CC000000000000000000000C /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC000000000000000000000C /* ChatViewModel.swift */; };
+		CD000000000000000000000D /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD000000000000000000000D /* NavigationRouter.swift */; };
+		CE000000000000000000000E /* MoodCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE000000000000000000000E /* MoodCardView.swift */; };
+		CF000000000000000000000F /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF000000000000000000000F /* ChatView.swift */; };
+		DA000000000000000000000A /* MoodResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA000000000000000000000A /* MoodResultsView.swift */; };
+		DB000000000000000000000B /* HeaderGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000000000B /* HeaderGlass.swift */; };
+		DC000000000000000000000C /* TopTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC000000000000000000000C /* TopTabBar.swift */; };
+		DD000000000000000000000D /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD000000000000000000000D /* RootTabView.swift */; };
+		DE000000000000000000000E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE000000000000000000000E /* AppCoordinator.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E4000000000000000000000E /* GitaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3000000000000000000000B /* GitaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitaAppApp.swift; sourceTree = "<group>"; };
+		C3000000000000000000000C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D3000000000000000000000D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E3000000000000000000000E /* CardFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFrontView.swift; sourceTree = "<group>"; };
+		F3000000000000000000000F /* CardBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackView.swift; sourceTree = "<group>"; };
+		A4000000000000000000000A /* VerseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseModel.swift; sourceTree = "<group>"; };
+		B4000000000000000000000B /* GitaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitaViewModel.swift; sourceTree = "<group>"; };
+		C4000000000000000000000C /* verses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = verses.json; sourceTree = "<group>"; };
+		D4000000000000000000000D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA000000000000000000000A /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
+		AB000000000000000000000B /* CurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurationService.swift; sourceTree = "<group>"; };
+		AC000000000000000000000C /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		AD000000000000000000000D /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		AE000000000000000000000E /* MoodCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCardView.swift; sourceTree = "<group>"; };
+		AF000000000000000000000F /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		BA000000000000000000000A /* MoodResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodResultsView.swift; sourceTree = "<group>"; };
+		BB000000000000000000000B /* HeaderGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderGlass.swift; sourceTree = "<group>"; };
+		BC000000000000000000000C /* TopTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBar.swift; sourceTree = "<group>"; };
+		BD000000000000000000000D /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
+		BE000000000000000000000E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A3000000000000000000000A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A2A2A2A2A2A2A2A2A2A2A2A2 /* MainGroup */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000B /* GitaApp */,
+				C1000000000000000000000C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C1000000000000000000000C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E4000000000000000000000E /* GitaApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B1000000000000000000000B /* GitaApp */ = {
+			isa = PBXGroup;
+			children = (
+				B3000000000000000000000B /* GitaAppApp.swift */,
+				C3000000000000000000000C /* ContentView.swift */,
+				D3000000000000000000000D /* CardView.swift */,
+				E3000000000000000000000E /* CardFrontView.swift */,
+				F3000000000000000000000F /* CardBackView.swift */,
+				A4000000000000000000000A /* VerseModel.swift */,
+				B4000000000000000000000B /* GitaViewModel.swift */,
+				AA000000000000000000000A /* Mood.swift */,
+				AB000000000000000000000B /* CurationService.swift */,
+				AC000000000000000000000C /* ChatViewModel.swift */,
+				AD000000000000000000000D /* NavigationRouter.swift */,
+				AE000000000000000000000E /* MoodCardView.swift */,
+				AF000000000000000000000F /* ChatView.swift */,
+				BA000000000000000000000A /* MoodResultsView.swift */,
+				BB000000000000000000000B /* HeaderGlass.swift */,
+				BC000000000000000000000C /* TopTabBar.swift */,
+				BD000000000000000000000D /* RootTabView.swift */,
+				BE000000000000000000000E /* AppCoordinator.swift */,
+				C4000000000000000000000C /* verses.json */,
+				D4000000000000000000000D /* Assets.xcassets */,
+			);
+			path = GitaApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D1000000000000000000000D /* GitaApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1000000000000000000000F /* Build configuration list for PBXNativeTarget "GitaApp" */;
+			buildPhases = (
+				E2000000000000000000000E /* Sources */,
+				F2000000000000000000000F /* Resources */,
+				A3000000000000000000000A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GitaApp;
+			productName = GitaApp;
+			productReference = E4000000000000000000000E /* GitaApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1000000000000000000000A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					D1000000000000000000000D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = E1000000000000000000000E /* Build configuration list for PBXProject "GitaApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A2A2A2A2A2A2A2A2A2A2A2A2;
+			productRefGroup = C1000000000000000000000C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D1000000000000000000000D /* GitaApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F2000000000000000000000F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6000000000000000000000A /* verses.json in Resources */,
+				B6000000000000000000000B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E2000000000000000000000E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4000000000000000000000F /* GitaAppApp.swift in Sources */,
+				A5000000000000000000000A /* ContentView.swift in Sources */,
+				B5000000000000000000000B /* CardView.swift in Sources */,
+				C5000000000000000000000C /* CardFrontView.swift in Sources */,
+				D5000000000000000000000D /* CardBackView.swift in Sources */,
+				E5000000000000000000000E /* VerseModel.swift in Sources */,
+				F5000000000000000000000F /* GitaViewModel.swift in Sources */,
+				CA000000000000000000000A /* Mood.swift in Sources */,
+				CB000000000000000000000B /* CurationService.swift in Sources */,
+				CC000000000000000000000C /* ChatViewModel.swift in Sources */,
+				CD000000000000000000000D /* NavigationRouter.swift in Sources */,
+				CE000000000000000000000E /* MoodCardView.swift in Sources */,
+				CF000000000000000000000F /* ChatView.swift in Sources */,
+				DA000000000000000000000A /* MoodResultsView.swift in Sources */,
+				DB000000000000000000000B /* HeaderGlass.swift in Sources */,
+				DC000000000000000000000C /* TopTabBar.swift in Sources */,
+				DD000000000000000000000D /* RootTabView.swift in Sources */,
+				DE000000000000000000000E /* AppCoordinator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A2000000000000000000000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B2000000000000000000000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		C2000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gita.GitaApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D2000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gita.GitaApp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1000000000000000000000E /* Build configuration list for PBXProject "GitaApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2000000000000000000000A /* Debug */,
+				B2000000000000000000000B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1000000000000000000000F /* Build configuration list for PBXNativeTarget "GitaApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2000000000000000000000C /* Debug */,
+				D2000000000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = A1000000000000000000000A /* Project object */;
+}
