@@ -3,12 +3,16 @@ import Combine
 
 // MARK: - VerseItem
 
-/// A verse paired with its pre-assigned VIBGYOR color.
+/// A verse paired with its pre-assigned background palette index.
 struct VerseItem: Identifiable {
     let id: Int
     let verse: Verse
-    let color: Color
-    let tintColor: Color  // lighter pastel tint for card background
+    let paletteID: Int
+
+    var palette: VersePalette { VersePalette.all[paletteID] }
+    // Legacy shims so other views don't need simultaneous changes
+    var color: Color { .white }
+    var tintColor: Color { .white.opacity(0.15) }
 }
 
 // MARK: - GitaViewModel
@@ -21,16 +25,7 @@ final class GitaViewModel: ObservableObject {
     /// Set this to trigger a smooth animated scroll to a specific verse.
     @Published var jumpToVerseID: Int?
 
-    // MARK: VIBGYOR palette
-    private static let palette: [(main: Color, tint: Color)] = [
-        (Color(red: 0.580, green: 0.310, blue: 0.980), Color(red: 0.960, green: 0.940, blue: 1.000)), // Violet
-        (Color(red: 0.380, green: 0.400, blue: 0.950), Color(red: 0.940, green: 0.945, blue: 1.000)), // Indigo
-        (Color(red: 0.200, green: 0.500, blue: 0.980), Color(red: 0.930, green: 0.950, blue: 1.000)), // Blue
-        (Color(red: 0.110, green: 0.760, blue: 0.370), Color(red: 0.920, green: 1.000, blue: 0.945)), // Green
-        (Color(red: 0.940, green: 0.720, blue: 0.020), Color(red: 1.000, green: 0.985, blue: 0.910)), // Yellow
-        (Color(red: 0.980, green: 0.450, blue: 0.080), Color(red: 1.000, green: 0.955, blue: 0.930)), // Orange
-        (Color(red: 0.940, green: 0.260, blue: 0.260), Color(red: 1.000, green: 0.940, blue: 0.940)), // Red
-    ]
+    private static let paletteCount = VersePalette.all.count
 
     // MARK: Computed helpers
 
@@ -66,16 +61,11 @@ final class GitaViewModel: ObservableObject {
             return
         }
 
-        var lastPaletteIndex: Int? = nil
+        // Map each verse to its chapter's palette (chapter 1 → id 0, etc.)
+        // Clamp to available palette count so adding more chapters never crashes.
         verses = decoded.map { verse in
-            var idx: Int
-            repeat {
-                idx = Int.random(in: 0..<Self.palette.count)
-            } while idx == lastPaletteIndex
-            lastPaletteIndex = idx
-
-            let entry = Self.palette[idx]
-            return VerseItem(id: verse.id, verse: verse, color: entry.main, tintColor: entry.tint)
+            let idx = min(verse.chapter - 1, Self.paletteCount - 1)
+            return VerseItem(id: verse.id, verse: verse, paletteID: max(0, idx))
         }
 
         currentVerseID = verses.first?.id

@@ -54,6 +54,9 @@ struct CardView: View {
             CardFrontView(item: item)
                 .modifier(FlipSide(rotation: isFlipped ? -180 : 0))
         }
+        // Shadow lives on the container so it never flickers during the flip
+        .shadow(color: .black.opacity(0.08), radius: 24, x: 0, y: 12)
+        .shadow(color: .black.opacity(0.04), radius: 8,  x: 0, y: 3)
         // Scale non-active cards down slightly for depth effect
         .scaleEffect(isActive ? 1.0 : 0.93)
         .opacity(isActive ? 1.0 : 0.65)
@@ -84,10 +87,10 @@ struct CardView: View {
             scene: "Dhritarashtra asks Sanjaya what happened on the battlefield.",
             takeaway: "Our first questions reveal our deepest loyalties — and our deepest blind spots."
         ),
-        color: Color(red: 0.940, green: 0.260, blue: 0.260),
-        tintColor: Color(red: 1.000, green: 0.940, blue: 0.940)
+        paletteID: 0
     )
     CardView(item: item, isActive: true)
         .frame(height: 520)
         .padding(24)
+        .background(VerseBackgroundView(palette: VersePalette.all[0]).ignoresSafeArea())
 }

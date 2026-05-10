@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Notion-style top pill-bar with two tabs: Verses and Chat.
-/// The active tab is highlighted with a capsule background using the shared GitaChrome glass system.
+/// Uses white text/icons to work on the gradient background.
 struct TopTabBar: View {
     @Binding var selectedTab: AppTab
     var glassNamespace: Namespace.ID
@@ -9,7 +9,7 @@ struct TopTabBar: View {
     var body: some View {
         GitaChrome.glassEffectGroup(spacing: 12) {
             HStack(spacing: 4) {
-                tabButton(.verses, icon: "book.pages", label: "Verses")
+                tabButton(.verses, icon: "book.pages",                        label: "Verses")
                 tabButton(.chat,   icon: "bubble.left.and.text.bubble.right", label: "Chat")
             }
             .padding(4)
@@ -38,13 +38,17 @@ struct TopTabBar: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.85)))
                 }
             }
+            // Adapts based on environment color scheme
             .foregroundStyle(selectedTab == tab ? Color.primary : Color.secondary)
             .padding(.horizontal, selectedTab == tab ? 20 : 14)
             .padding(.vertical, 8)
             .background {
                 if selectedTab == tab {
                     Capsule(style: .continuous)
-                        .fill(Color.primary.opacity(0.08))
+                        // Native iOS segmented control active pill look
+                        .fill(Color(uiColor: .systemBackground))
+                        // Subtle drop shadow so it pops off the outer glass track
+                        .shadow(color: .black.opacity(0.12), radius: 6, x: 0, y: 2)
                         .matchedGeometryEffect(id: "activeTabPill", in: glassNamespace)
                 }
             }

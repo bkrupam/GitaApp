@@ -5,6 +5,7 @@ struct ContentView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @Namespace private var homeChrome
     private let fadeHeight: CGFloat = 48
+    @State private var showingIndex = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -71,38 +72,35 @@ struct ContentView: View {
             .padding(.top, 10)
             .padding(.bottom, 16)
         }
+        // ── Full-screen background handled by RootTabView ────────────────────
+        // (no local background needed here)
+        .sheet(isPresented: $showingIndex) {
+            ChapterIndexSheet(isPresented: $showingIndex)
+                .environmentObject(viewModel)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(20)
+        }
     }
 
-    // MARK: - Floating chapter / verse menu button (bottom-right)
+    // MARK: - Floating chapter / verse index button (bottom-right)
 
     private var chapterMenuButton: some View {
-        let grouped = Dictionary(grouping: viewModel.verses, by: { $0.verse.chapter })
-        let sortedChapterKeys = grouped.keys.sorted()
-
-        return GitaChrome.glassEffectGroup(spacing: 0) {
-            Menu {
-                ForEach(sortedChapterKeys, id: \.self) { chapterNum in
-                    Section("Chapter \(chapterNum)") {
-                        ForEach(grouped[chapterNum] ?? []) { item in
-                            Button("Verse \(item.verse.verseNumber)") {
-                                viewModel.jumpToVerseID = item.id
-                            }
-                        }
-                    }
-                }
+        GitaChrome.glassEffectGroup(spacing: 0) {
+            Button {
+                showingIndex = true
             } label: {
                 Image(systemName: "line.3.horizontal")
                     .font(.system(size: 20, weight: .medium))
                     .symbolRenderingMode(.monochrome)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color.primary)
                     .frame(width: 48, height: 48)
                     .gitaHeaderCircleGlass(
                         glassID: "homeChapterMenuOrb",
                         glassNamespace: homeChrome
                     )
             }
-            .menuIndicator(.hidden)
-            .menuStyle(.automatic)
+            .buttonStyle(.plain)
         }
     }
 
@@ -111,10 +109,10 @@ struct ContentView: View {
     private var edgeFadeMask: some View {
         VStack(spacing: 0) {
             LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
-                .frame(height: fadeHeight)
+                .frame(height: fadeHeight * 0.3)
             Rectangle().fill(Color.black)
             LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
-                .frame(height: fadeHeight * 2.2)
+                .frame(height: fadeHeight * 0.8)
         }
     }
 
@@ -123,7 +121,7 @@ struct ContentView: View {
     private var progressLabel: some View {
         Text("\(viewModel.progressPercent)% completed")
             .font(.system(size: 13, weight: .regular, design: .rounded))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Color.primary.opacity(0.4))
             .contentTransition(.numericText())
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.progressPercent)
     }

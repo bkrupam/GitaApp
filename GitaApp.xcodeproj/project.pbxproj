@@ -27,6 +27,8 @@
 		DC000000000000000000000C /* TopTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC000000000000000000000C /* TopTabBar.swift */; };
 		DD000000000000000000000D /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD000000000000000000000D /* RootTabView.swift */; };
 		DE000000000000000000000E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE000000000000000000000E /* AppCoordinator.swift */; };
+		DF000000000000000000000F /* VersePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF000000000000000000000F /* VersePalette.swift */; };
+		EA000000000000000000001A /* ChapterIndexSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000001A /* ChapterIndexSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		BC000000000000000000000C /* TopTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBar.swift; sourceTree = "<group>"; };
 		BD000000000000000000000D /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
 		BE000000000000000000000E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		BF000000000000000000000F /* VersePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersePalette.swift; sourceTree = "<group>"; };
+		FA000000000000000000001A /* ChapterIndexSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterIndexSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 				BC000000000000000000000C /* TopTabBar.swift */,
 				BD000000000000000000000D /* RootTabView.swift */,
 				BE000000000000000000000E /* AppCoordinator.swift */,
+				BF000000000000000000000F /* VersePalette.swift */,
+				FA000000000000000000001A /* ChapterIndexSheet.swift */,
 				C4000000000000000000000C /* verses.json */,
 				D4000000000000000000000D /* Assets.xcassets */,
 			);
@@ -195,6 +201,8 @@
 				DC000000000000000000000C /* TopTabBar.swift in Sources */,
 				DD000000000000000000000D /* RootTabView.swift in Sources */,
 				DE000000000000000000000E /* AppCoordinator.swift in Sources */,
+				DF000000000000000000000F /* VersePalette.swift in Sources */,
+				EA000000000000000000001A /* ChapterIndexSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
