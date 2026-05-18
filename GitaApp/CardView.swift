@@ -19,8 +19,9 @@ private struct FlipSide: AnimatableModifier {
                 axis: (x: 0, y: 1, z: 0),
                 perspective: 0.35
             )
-            // Hide the face while it's pointing away from the viewer
             .opacity(isFacingViewer ? 1 : 0)
+            // Prevent the hidden face from intercepting taps (its inner ScrollView eats touches)
+            .allowsHitTesting(isFacingViewer)
     }
 
     private var isFacingViewer: Bool {
@@ -55,8 +56,9 @@ struct CardView: View {
                 .modifier(FlipSide(rotation: isFlipped ? -180 : 0))
         }
         // Shadow lives on the container so it never flickers during the flip
-        .shadow(color: .black.opacity(0.08), radius: 24, x: 0, y: 12)
-        .shadow(color: .black.opacity(0.04), radius: 8,  x: 0, y: 3)
+        .shadow(color: .black.opacity(0.05), radius: 20, x: 0, y: 10)
+        // Explicit hit area so the whole card surface is tappable
+        .contentShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
         // Scale non-active cards down slightly for depth effect
         .scaleEffect(isActive ? 1.0 : 0.93)
         .opacity(isActive ? 1.0 : 0.65)
