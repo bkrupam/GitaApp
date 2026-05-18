@@ -109,10 +109,10 @@ struct ContentView: View {
     private var edgeFadeMask: some View {
         VStack(spacing: 0) {
             LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
-                .frame(height: fadeHeight * 0.3)
+                .frame(height: 22)
             Rectangle().fill(Color.black)
             LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
-                .frame(height: fadeHeight * 0.8)
+                .frame(height: fadeHeight)
         }
     }
 
