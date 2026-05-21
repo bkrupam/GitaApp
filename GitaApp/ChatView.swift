@@ -101,12 +101,13 @@ struct ChatView: View {
 
     private func consumePendingQuery() {
         guard let q = coordinator.pendingLearnMoreQuery else { return }
+        let verse = coordinator.pendingLearnMoreVerse
         coordinator.pendingLearnMoreQuery = nil
+        coordinator.pendingLearnMoreVerse = nil
         Task {
-            // Let the tab transition finish, then start a fresh conversation
             try? await Task.sleep(for: .milliseconds(350))
             vm.resetChat()
-            await vm.handleLearnMore(query: q)
+            await vm.handleLearnMore(query: q, verse: verse)
         }
     }
 
@@ -128,7 +129,7 @@ struct ChatView: View {
                                         .id(message.id)
                                 }
 
-                                if vm.isAwaitingMoodResponse {
+                                if vm.isAwaitingMoodResponse || vm.isLoading {
                                     thinkingRow
                                         .id("thinking")
                                 }
@@ -140,9 +141,8 @@ struct ChatView: View {
                     .onChange(of: vm.messages.count) { messageCount in
                         scrollToLatest(proxy)
                     }
-                    .onChange(of: vm.isAwaitingMoodResponse) { isAwaitingMoodResponse in
-                        scrollToLatest(proxy)
-                    }
+                    .onChange(of: vm.isAwaitingMoodResponse) { _ in scrollToLatest(proxy) }
+                    .onChange(of: vm.isLoading) { _ in scrollToLatest(proxy) }
                 }
             }
             .frame(maxWidth: .infinity)
@@ -233,12 +233,7 @@ struct ChatView: View {
 
     private func handleSubmit() {
         guard vm.canSubmit else { return }
-        Task {
-            if let ids = await vm.submitFreeText(allVerses: gitaVM.verses) {
-                vm.freeText = ""
-                router.push(.freeTextResults(title: "Curated for you", verseIDs: ids))
-            }
-        }
+        Task { await vm.handleFreeTextSubmit(allVerses: gitaVM.verses) }
     }
 
     private func handleMoodTap(_ mood: Mood) {
@@ -254,7 +249,9 @@ struct ChatView: View {
         case .assistantText(_, let fullText):
             return AnyView(assistantTextRow(fullText))
         case .assistantCards(_, let response):
-            return AnyView(assistantCardsRow(response))
+            return AnyView(assistantMoodCardsRow(response))
+        case .assistantFreeTextCards(_, let response):
+            return AnyView(assistantFreeTextCardsRow(response))
         }
     }
 
@@ -290,7 +287,7 @@ struct ChatView: View {
         }
     }
 
-    private func assistantCardsRow(_ response: ChatMoodResponse) -> some View {
+    private func assistantMoodCardsRow(_ response: ChatMoodResponse) -> some View {
         HStack {
             Button {
                 router.push(.moodResults(mood: response.mood, verseIDs: response.verseIDs))
@@ -339,6 +336,55 @@ struct ChatView: View {
         .transition(.move(edge: .bottom).combined(with: .opacity))
     }
 
+    private func assistantFreeTextCardsRow(_ response: ChatFreeTextResponse) -> some View {
+        HStack {
+            Button {
+                router.push(.freeTextResults(title: response.title, verseIDs: response.verseIDs))
+            } label: {
+                HStack(alignment: .center, spacing: 14) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(response.cardTitle)
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundStyle(.primary)
+
+                        Text(response.subtitle)
+                            .font(.system(size: 12, weight: .regular, design: .rounded))
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer(minLength: 12)
+
+                    Text("Open")
+                        .font(.system(size: 13, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.primary)
+                        .padding(.horizontal, 13)
+                        .padding(.vertical, 8)
+                        .background(.thinMaterial, in: Capsule(style: .continuous))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 13)
+                .background(
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .fill(Color.white.opacity(0.9))
+                )
+                .overlay {
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .stroke(Color.primary.opacity(0.08), lineWidth: 0.5)
+                }
+                .gitaInputFieldGlass(
+                    cornerRadius: 24,
+                    glassID: "freeTextResponse-\(response.id.uuidString)",
+                    glassNamespace: responseCardChrome
+                )
+            }
+            .buttonStyle(.plain)
+
+            Spacer(minLength: 32)
+        }
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+    }
+
     private func assistantTextRow(_ text: String) -> some View {
         TypewriterTextBubble(text: text)
     }
@@ -365,7 +411,7 @@ struct ChatView: View {
 
     private func scrollToLatest(_ proxy: ScrollViewProxy) {
         guard let lastID = vm.messages.last?.id else { return }
-        let target: AnyHashable = vm.isAwaitingMoodResponse ? "thinking" : lastID
+        let target: AnyHashable = (vm.isAwaitingMoodResponse || vm.isLoading) ? "thinking" : lastID
         withAnimation(.easeOut(duration: 0.25)) {
             proxy.scrollTo(target, anchor: .bottom)
         }

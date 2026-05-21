@@ -9,7 +9,7 @@ protocol CurationService {
 
 // MARK: - Offline implementation
 
-/// Returns the pre-curated IDs embedded in each Mood. Used for the emotion-card path.
+/// Returns the pre-curated IDs embedded in each Mood. Used for the emotion-chip path.
 final class OfflineCurationService: CurationService {
 
     func verseIDs(forMood mood: Mood) async -> [Int] {
@@ -21,13 +21,40 @@ final class OfflineCurationService: CurationService {
     }
 }
 
-// MARK: - Remote implementation (hybrid)
+// MARK: - Gemini implementation
+
+/// Uses Gemini when configured; otherwise falls back to local keyword matching.
+final class GeminiCurationService: CurationService {
+    private let gemini = GeminiClient()
+    private let offline = OfflineCurationService()
+
+    func verseIDs(forMood mood: Mood) async -> [Int] {
+        await offline.verseIDs(forMood: mood)
+    }
+
+    func verseIDs(forFreeText text: String, allVerses: [VerseItem]) async throws -> [Int] {
+        if GeminiConfig.isConfigured {
+            do {
+                let ids = try await gemini.curateVerseIDs(feeling: text, verses: allVerses)
+                if !ids.isEmpty { return ids }
+            } catch GeminiError.notConfigured {
+                // Fall through to keyword match.
+            } catch {
+                throw error
+            }
+        }
+        return keywordMatch(text: text, allVerses: allVerses)
+    }
+}
+
+// MARK: - Remote backend implementation (optional)
 
 /// Posts the user's free text to a configurable backend endpoint.
-/// Falls back to local keyword matching when the request fails or the endpoint is unset.
+/// Falls back to Gemini or local keyword matching when the endpoint is unset.
 final class RemoteCurationService: CurationService {
+    private let geminiService = GeminiCurationService()
 
-    // Replace with a real URL before shipping the LLM integration.
+    // Set this when you add a custom backend (can proxy Gemini server-side).
     private static let endpointURL: URL? = nil
 
     private struct RemoteResponse: Decodable {
@@ -35,31 +62,32 @@ final class RemoteCurationService: CurationService {
     }
 
     func verseIDs(forMood mood: Mood) async -> [Int] {
-        mood.verseIDs
+        await geminiService.verseIDs(forMood: mood)
     }
 
     func verseIDs(forFreeText text: String, allVerses: [VerseItem]) async throws -> [Int] {
         guard let url = Self.endpointURL else {
-            // No endpoint configured — fall back to local matching.
-            return keywordMatch(text: text, allVerses: allVerses)
+            return try await geminiService.verseIDs(forFreeText: text, allVerses: allVerses)
         }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body = try JSONEncoder().encode(["feeling": text])
-        request.httpBody = body
+        request.httpBody = try JSONEncoder().encode(["feeling": text])
 
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
-                return keywordMatch(text: text, allVerses: allVerses)
+                return try await geminiService.verseIDs(forFreeText: text, allVerses: allVerses)
             }
             let decoded = try JSONDecoder().decode(RemoteResponse.self, from: data)
-            return decoded.verseIDs
+            let valid = Set(allVerses.map(\.id))
+            let filtered = decoded.verseIDs.filter { valid.contains($0) }
+            return filtered.isEmpty
+                ? try await geminiService.verseIDs(forFreeText: text, allVerses: allVerses)
+                : Array(filtered.prefix(8))
         } catch {
-            // Network or decode error — degrade gracefully to local matching.
-            return keywordMatch(text: text, allVerses: allVerses)
+            return try await geminiService.verseIDs(forFreeText: text, allVerses: allVerses)
         }
     }
 }
@@ -68,11 +96,11 @@ final class RemoteCurationService: CurationService {
 
 /// Scores every verse by how many tokens from `text` appear in quote + takeaway.
 /// Returns the top 8 verse IDs, or a random 8 if nothing matches.
-private func keywordMatch(text: String, allVerses: [VerseItem]) -> [Int] {
+func keywordMatch(text: String, allVerses: [VerseItem]) -> [Int] {
     let tokens = text
         .lowercased()
         .components(separatedBy: .whitespacesAndNewlines)
-        .filter { $0.count > 3 }   // skip short stop words
+        .filter { $0.count > 3 }
 
     guard !tokens.isEmpty else {
         return Array(allVerses.shuffled().prefix(8).map(\.id))

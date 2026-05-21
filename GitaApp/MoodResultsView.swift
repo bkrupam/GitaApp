@@ -28,27 +28,8 @@ struct MoodResultsView: View {
         return verses.firstIndex { $0.id == id } ?? 0
     }
 
-    // Derives a medium-saturation gradient top colour from the mood's colour pair.
-    // Blends 35% from fillColor toward the darker accent color so the result is
-    // clearly tinted but never heavy.
-    private var gradientTopColor: Color {
-        guard let m = mood else {
-            return Color(red: 0.55, green: 0.68, blue: 0.90) // neutral blue for free-text
-        }
-        let c = UIColor(m.color)
-        let f = UIColor(m.fillColor)
-        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
-        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
-        c.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
-        f.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
-        let t: CGFloat = 0.35
-        return Color(red: r2 * (1 - t) + r1 * t,
-                     green: g2 * (1 - t) + g1 * t,
-                     blue: b2 * (1 - t) + b1 * t)
-    }
-
-    private var gradientMidColor: Color {
-        mood?.fillColor ?? Color(red: 0.84, green: 0.90, blue: 0.97)
+    private var resultsPalette: VersePalette {
+        mood.map { VersePalette.forMood($0) } ?? VersePalette.freeTextResults
     }
 
     var body: some View {
@@ -86,35 +67,8 @@ struct MoodResultsView: View {
                 .padding(.bottom, 16)
         }
         .background {
-            ZStack {
-                let b  = VersePalette.base
-                let c1 = gradientTopColor
-                let c2 = gradientMidColor
-                MeshGradient(
-                    width: 3,
-                    height: 3,
-                    points: [
-                        [0, 0], [0.5, 0], [1, 0],
-                        [0, 0.5], [0.5, 0.5], [1, 0.5],
-                        [0, 1], [0.5, 1], [1, 1]
-                    ],
-                    colors: [
-                        c1,                        // top-left
-                        c1.mix(with: b, by: 0.35), // top-center
-                        b,                         // top-right
-                        c1.mix(with: b, by: 0.35), // mid-left
-                        b,                         // center
-                        c2.mix(with: b, by: 0.35), // mid-right
-                        b,                         // bottom-left
-                        c2.mix(with: b, by: 0.35), // bottom-center
-                        c2,                        // bottom-right
-                    ],
-                    background: VersePalette.base
-                )
+            VerseBackgroundView(palette: resultsPalette)
                 .ignoresSafeArea()
-                GrainOverlay(opacity: 0.06)
-            }
-            .ignoresSafeArea()
         }
         .toolbar(.hidden, for: .navigationBar)
         .onAppear {
@@ -183,7 +137,11 @@ struct MoodResultsView: View {
     private var progressLabel: some View {
         Group {
             if verses.isEmpty {
-                Text("")
+                Text("No verses matched — try another mood or phrase")
+                    .font(.system(size: 13, weight: .regular, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
             } else {
                 Text("\(currentIndex + 1) of \(verses.count)")
                     .font(.system(size: 13, weight: .regular, design: .rounded))

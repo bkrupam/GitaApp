@@ -24,6 +24,7 @@ struct ContentView: View {
                                     onAskMore: {
                                         let q = "Tell me more about chapter \(item.verse.chapter) verse \(item.verse.verseNumber)"
                                         coordinator.pendingLearnMoreQuery = q
+                                        coordinator.pendingLearnMoreVerse = item.verse
                                         withAnimation(.easeInOut(duration: 0.2)) {
                                             coordinator.selectedTab = .chat
                                         }

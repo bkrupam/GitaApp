@@ -29,6 +29,9 @@
 		DE000000000000000000000E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE000000000000000000000E /* AppCoordinator.swift */; };
 		DF000000000000000000000F /* VersePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF000000000000000000000F /* VersePalette.swift */; };
 		EA000000000000000000001A /* ChapterIndexSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000001A /* ChapterIndexSheet.swift */; };
+		EB000000000000000000001B /* GeminiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000000000000000000001B /* GeminiConfig.swift */; };
+		EC000000000000000000001C /* GeminiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC000000000000000000001C /* GeminiClient.swift */; };
+		ED000000000000000000001D /* VerseDataValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD000000000000000000001D /* VerseDataValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,9 @@
 		BE000000000000000000000E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BF000000000000000000000F /* VersePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersePalette.swift; sourceTree = "<group>"; };
 		FA000000000000000000001A /* ChapterIndexSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterIndexSheet.swift; sourceTree = "<group>"; };
+		FB000000000000000000001B /* GeminiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiConfig.swift; sourceTree = "<group>"; };
+		FC000000000000000000001C /* GeminiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiClient.swift; sourceTree = "<group>"; };
+		FD000000000000000000001D /* VerseDataValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseDataValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,9 @@
 				BE000000000000000000000E /* AppCoordinator.swift */,
 				BF000000000000000000000F /* VersePalette.swift */,
 				FA000000000000000000001A /* ChapterIndexSheet.swift */,
+				FB000000000000000000001B /* GeminiConfig.swift */,
+				FC000000000000000000001C /* GeminiClient.swift */,
+				FD000000000000000000001D /* VerseDataValidator.swift */,
 				C4000000000000000000000C /* verses.json */,
 				D4000000000000000000000D /* Assets.xcassets */,
 			);
@@ -203,6 +212,9 @@
 				DE000000000000000000000E /* AppCoordinator.swift in Sources */,
 				DF000000000000000000000F /* VersePalette.swift in Sources */,
 				EA000000000000000000001A /* ChapterIndexSheet.swift in Sources */,
+				EB000000000000000000001B /* GeminiConfig.swift in Sources */,
+				EC000000000000000000001C /* GeminiClient.swift in Sources */,
+				ED000000000000000000001D /* VerseDataValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,9 +34,9 @@ struct RootTabView: View {
         .background {
             if coordinator.selectedTab == .verses {
                 VerseBackgroundView(palette: activePalette)
-                    .id(activePalette.id)
+                    .id("verse-bg-\(activePalette.id)")
                     .transition(.opacity)
-                    .animation(.easeInOut(duration: 0.75), value: activePalette.id)
+                    .animation(.easeInOut(duration: 1.0), value: activePalette.id)
                     .ignoresSafeArea()
             } else {
                 Color.white.ignoresSafeArea()
