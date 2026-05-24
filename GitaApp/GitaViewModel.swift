@@ -68,6 +68,15 @@ final class GitaViewModel: ObservableObject {
             return VerseItem(id: verse.id, verse: verse, paletteID: max(0, idx))
         }
 
+        let issues = VerseDataValidator.validate(verses: decoded)
+        #if DEBUG
+        if !issues.isEmpty {
+            for issue in issues {
+                print("⚠️ Verse data: \(issue.message)")
+            }
+        }
+        #endif
+
         currentVerseID = verses.first?.id
     }
 }

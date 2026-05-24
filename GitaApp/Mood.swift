@@ -53,7 +53,7 @@ extension Mood {
             color:     Color(red: 0.68, green: 0.22, blue: 0.08),
             fillColor: Color(red: 0.99, green: 0.85, blue: 0.75),
             tintColor: Color(red: 1.00, green: 0.95, blue: 0.91),
-            verseIDs: [63, 67, 96, 113, 200, 256, 310, 380]
+            verseIDs: [63, 67, 96, 113, 200, 62, 64, 68]
         ),
 
         // Sandy alien fossil → warm sand
@@ -64,7 +64,7 @@ extension Mood {
             color:     Color(red: 0.48, green: 0.36, blue: 0.14),
             fillColor: Color(red: 0.97, green: 0.92, blue: 0.78),
             tintColor: Color(red: 0.99, green: 0.97, blue: 0.92),
-            verseIDs: [3, 19, 47, 88, 140, 210, 290, 350]
+            verseIDs: [3, 19, 47, 88, 140, 20, 24, 25]
         ),
 
         // Grey cloud + figure → light silver-lavender
@@ -75,7 +75,7 @@ extension Mood {
             color:     Color(red: 0.28, green: 0.32, blue: 0.46),
             fillColor: Color(red: 0.86, green: 0.88, blue: 0.93),
             tintColor: Color(red: 0.94, green: 0.95, blue: 0.97),
-            verseIDs: [5, 9, 21, 42, 75, 130, 220, 330]
+            verseIDs: [5, 9, 21, 42, 75, 130, 10, 11]
         ),
 
         // Gold 3D star → warm golden yellow
@@ -86,7 +86,7 @@ extension Mood {
             color:     Color(red: 0.58, green: 0.40, blue: 0.04),
             fillColor: Color(red: 1.00, green: 0.93, blue: 0.62),
             tintColor: Color(red: 1.00, green: 0.98, blue: 0.88),
-            verseIDs: [33, 46, 78, 110, 160, 230, 315, 410]
+            verseIDs: [33, 46, 78, 110, 160, 34, 35, 36]
         ),
 
         // Orange-yellow sun → warm sunshine
@@ -97,7 +97,7 @@ extension Mood {
             color:     Color(red: 0.64, green: 0.38, blue: 0.04),
             fillColor: Color(red: 1.00, green: 0.92, blue: 0.62),
             tintColor: Color(red: 1.00, green: 0.97, blue: 0.88),
-            verseIDs: [44, 82, 122, 170, 240, 305, 370, 445]
+            verseIDs: [44, 82, 122, 170, 45, 46, 47, 48]
         ),
 
         // Vivid green leaf → fresh mint
@@ -108,7 +108,7 @@ extension Mood {
             color:     Color(red: 0.10, green: 0.48, blue: 0.20),
             fillColor: Color(red: 0.82, green: 0.97, blue: 0.82),
             tintColor: Color(red: 0.93, green: 0.99, blue: 0.93),
-            verseIDs: [55, 70, 100, 145, 205, 270, 340, 420]
+            verseIDs: [55, 70, 100, 145, 56, 57, 58, 59]
         ),
 
         // Crying character (blue jeans, teary) → soft sky blue
@@ -119,7 +119,7 @@ extension Mood {
             color:     Color(red: 0.18, green: 0.38, blue: 0.68),
             fillColor: Color(red: 0.80, green: 0.91, blue: 0.98),
             tintColor: Color(red: 0.93, green: 0.97, blue: 1.00),
-            verseIDs: [27, 30, 45, 83, 125, 175, 245, 318]
+            verseIDs: [27, 30, 45, 83, 125, 175, 28, 29]
         ),
 
         // Blue infinity loop → pale cornflower
@@ -130,7 +130,7 @@ extension Mood {
             color:     Color(red: 0.18, green: 0.42, blue: 0.76),
             fillColor: Color(red: 0.78, green: 0.90, blue: 0.98),
             tintColor: Color(red: 0.92, green: 0.96, blue: 1.00),
-            verseIDs: [1, 6, 22, 38, 72, 118, 185, 260]
+            verseIDs: [1, 6, 22, 38, 72, 118, 185, 7]
         ),
 
         // Parchment treasure map → warm cream
@@ -141,7 +141,7 @@ extension Mood {
             color:     Color(red: 0.46, green: 0.34, blue: 0.12),
             fillColor: Color(red: 0.98, green: 0.93, blue: 0.76),
             tintColor: Color(red: 0.99, green: 0.97, blue: 0.91),
-            verseIDs: [7, 14, 35, 65, 105, 162, 228, 295]
+            verseIDs: [7, 14, 35, 65, 105, 162, 8, 15]
         ),
 
         // Happy brown monkey → warm caramel cream
@@ -152,7 +152,7 @@ extension Mood {
             color:     Color(red: 0.44, green: 0.26, blue: 0.10),
             fillColor: Color(red: 0.97, green: 0.90, blue: 0.80),
             tintColor: Color(red: 0.99, green: 0.96, blue: 0.92),
-            verseIDs: [50, 90, 135, 195, 265, 335, 400, 470]
+            verseIDs: [50, 90, 135, 195, 51, 52, 91, 136]
         ),
     ]
 }

@@ -1,0 +1,7 @@
+# Gemini API key — never commit
+GitaApp/GeminiSecrets.plist
+
+# Xcode user state
+*.xcuserstate
+xcuserdata/
+.derivedData/

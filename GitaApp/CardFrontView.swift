@@ -1,85 +1,60 @@
 import SwiftUI
 
+/// Calm pastel poster — soft chapter hue, dark serif headline, easy on the eyes.
 struct CardFrontView: View {
     let item: VerseItem
 
+    private var palette: VersePalette { item.palette }
+
     var body: some View {
-        if #available(iOS 26.0, *) {
-            glassCard
-        } else {
-            legacyCard
-        }
-    }
+        ZStack(alignment: .topLeading) {
+            RoundedRectangle(cornerRadius: 32, style: .continuous)
+                .fill(palette.pastelCardSurface)
 
-    // MARK: - iOS 26 Liquid Glass
+            VStack(alignment: .leading, spacing: 0) {
+                chapterChip
+                    .padding(.bottom, 24)
 
-    @available(iOS 26.0, *)
-    private var glassCard: some View {
-        VStack(spacing: 0) {
-            chipView
-            Spacer()
-            quoteView
-            Spacer()
-        }
-        .padding(.horizontal, 32)
-        .padding(.vertical, 36)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .glassEffect(Glass.regular, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
-    }
+                Spacer(minLength: 0)
 
-    // MARK: - Legacy (< iOS 26)
+                quoteHeadline
 
-    private var legacyCard: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(.ultraThinMaterial)
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [.white.opacity(0.8), .clear],
-                        startPoint: .top,
-                        endPoint: UnitPoint(x: 0.5, y: 0.4)
-                    )
-                )
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .strokeBorder(Color.primary.opacity(0.06), lineWidth: 0.8)
-            VStack(spacing: 0) {
-                chipView
-                Spacer()
-                quoteView
-                    .shadow(color: .white.opacity(0.6), radius: 2, x: 0, y: 1)
-                Spacer()
+                Spacer(minLength: 0)
             }
-            .padding(.horizontal, 32)
-            .padding(.vertical, 36)
+            .padding(.horizontal, 28)
+            .padding(.top, 28)
+            .padding(.bottom, 32)
         }
     }
 
-    // MARK: - Shared subviews
+    // MARK: - Chip
 
-    private var chipView: some View {
-        Text("CH \(item.verse.chapter)  ·  V \(item.verse.verseNumber)")
-            .font(.system(size: 10, weight: .bold, design: .rounded))
-            .tracking(2.0)
-            .foregroundStyle(Color.secondary)
-            .padding(.horizontal, 14)
+    private var chapterChip: some View {
+        Text("CH \(item.verse.chapter) · V \(item.verse.verseNumber)")
+            .font(.system(size: 11, weight: .semibold, design: .rounded))
+            .tracking(1.1)
+            .foregroundStyle(VersePalette.posterInk.opacity(0.72))
+            .padding(.horizontal, 12)
             .padding(.vertical, 6)
-            .background(
+            .background {
                 Capsule(style: .continuous)
-                    .fill(Color.primary.opacity(0.05))
-                    .overlay(
+                    .fill(palette.pastelChipSurface)
+                    .overlay {
                         Capsule(style: .continuous)
-                            .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.7)
-                    )
-            )
+                            .strokeBorder(palette.pastelChipBorder, lineWidth: 0.8)
+                    }
+            }
     }
 
-    private var quoteView: some View {
+    // MARK: - Headline
+
+    private var quoteHeadline: some View {
         Text(item.verse.quote)
-            .font(.system(size: 24, weight: .heavy, design: .rounded))
-            .foregroundStyle(Color.primary)
-            .multilineTextAlignment(.center)
-            .lineSpacing(7)
+            .font(.system(size: 30, weight: .semibold, design: .serif))
+            .foregroundStyle(VersePalette.posterInk)
+            .multilineTextAlignment(.leading)
+            .lineSpacing(2)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -95,7 +70,7 @@ struct CardFrontView: View {
         ),
         paletteID: 0
     ))
-    .frame(height: 500)
+    .frame(height: 540)
     .padding(24)
     .background(VerseBackgroundView(palette: VersePalette.all[0]).ignoresSafeArea())
 }

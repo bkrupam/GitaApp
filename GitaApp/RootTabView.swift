@@ -14,15 +14,20 @@ struct RootTabView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            TopTabBar(selectedTab: $coordinator.selectedTab, glassNamespace: tabBarNamespace)
+            TopTabBar(
+                selectedTab: $coordinator.selectedTab,
+                glassNamespace: tabBarNamespace,
+                onVibrantCanvas: coordinator.selectedTab == .verses
+            )
+                .gitaVerseCanvasFrost()
                 .padding(.top, 12)
                 .padding(.bottom, 8)
-                .environment(\.colorScheme, .light)
 
             Group {
                 switch coordinator.selectedTab {
                 case .verses:
                     ContentView()
+                        .gitaVerseCanvasFrost()
                         .transition(.opacity)
                 case .chat:
                     ChatView()
@@ -34,15 +39,16 @@ struct RootTabView: View {
         .background {
             if coordinator.selectedTab == .verses {
                 VerseBackgroundView(palette: activePalette)
-                    .id(activePalette.id)
+                    .id("verse-bg-\(activePalette.id)")
                     .transition(.opacity)
-                    .animation(.easeInOut(duration: 0.75), value: activePalette.id)
+                    .animation(.easeInOut(duration: 1.0), value: activePalette.id)
                     .ignoresSafeArea()
             } else {
                 Color.white.ignoresSafeArea()
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .preferredColorScheme(.light)
     }
 }
 

@@ -8,6 +8,7 @@ final class AppCoordinator: ObservableObject {
 
     /// Set this before switching to .chat — ChatView consumes it on appear / change.
     @Published var pendingLearnMoreQuery: String? = nil
+    @Published var pendingLearnMoreVerse: Verse? = nil
 
     /// Owned here so it survives tab switches (ChatView uses it as @EnvironmentObject).
     let chatViewModel = ChatViewModel()

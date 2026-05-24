@@ -1,0 +1,14 @@
+---
+description: Keep GitaApp work aligned with the project plan
+alwaysApply: true
+---
+
+# Plan Tracking
+
+Before implementation work, read `APP_PLAN.md`.
+
+- Use `APP_PLAN.md` as the source of truth for pending work and priorities.
+- Focus on making the app work beautifully on local laptop/simulator and physical iPhone first.
+- Do not prioritize App Store readiness unless the user explicitly asks for it.
+- When a task is completed and verified, update its row in `APP_PLAN.md` to `Ready` and check it off.
+- Add a dated note to the `Progress Log` for completed or meaningfully advanced work.
