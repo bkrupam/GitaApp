@@ -98,40 +98,39 @@ struct VersePalette: Identifiable {
 }
 
 // MARK: - Chapter Palettes
-// Cool, soothing pairs — lavender, slate, sage, mist, ocean, violet.
-// No warm yellows/golds. Each chapter gets a distinct baseTint + accent pair.
+// Distinct chapter identity — warm gold/orange for early chapters, cool blues and violets after.
 
 extension VersePalette {
 
     static let all: [VersePalette] = [
 
-        // Ch 1  Arjuna Vishada — grief, doubt → stormy plum (red-violet, not blue)
+        // Ch 1  Arjuna Vishada — warm golden yellow (distinct from ch4 violet)
         VersePalette(id: 0,
-            baseTint: Color(red: 0.08, green: 0.05, blue: 0.10),
-            color1: Color(red: 0.48, green: 0.22, blue: 0.58),
-            color2: Color(red: 0.44, green: 0.18, blue: 0.54),
-            grainOpacity: 0.05),
+            baseTint: Color(red: 0.978, green: 0.972, blue: 0.948),
+            color1: Color(red: 0.90, green: 0.82, blue: 0.50),
+            color2: Color(red: 0.86, green: 0.74, blue: 0.34),
+            grainOpacity: 0.04),
 
         // Ch 2  Sankhya Yoga — clarity, the eternal → cool cobalt (cyan-blue, not violet)
         VersePalette(id: 1,
-            baseTint: Color(red: 0.04, green: 0.07, blue: 0.12),
+            baseTint: Color(red: 0.948, green: 0.962, blue: 0.978),
             color1: Color(red: 0.10, green: 0.58, blue: 0.92),
             color2: Color(red: 0.06, green: 0.54, blue: 0.90),
-            grainOpacity: 0.05),
+            grainOpacity: 0.04),
 
-        // Ch 3  Karma Yoga — selfless action in the world → dark cerulean teal
+        // Ch 3  Karma Yoga — selfless action → soft red (distinct from ch2 blue)
         VersePalette(id: 2,
-            baseTint: Color(red: 0.04, green: 0.08, blue: 0.10),
-            color1: Color(red: 0.14, green: 0.62, blue: 0.72),
-            color2: Color(red: 0.10, green: 0.58, blue: 0.70),
-            grainOpacity: 0.05),
+            baseTint: Color(red: 0.978, green: 0.954, blue: 0.952),
+            color1: Color(red: 0.92, green: 0.58, blue: 0.56),
+            color2: Color(red: 0.86, green: 0.40, blue: 0.42),
+            grainOpacity: 0.04),
 
         // Ch 4  Jnana Yoga — fire of knowledge, renunciation → deep violet
         VersePalette(id: 3,
-            baseTint: Color(red: 0.08, green: 0.05, blue: 0.12),
+            baseTint: Color(red: 0.958, green: 0.952, blue: 0.976),
             color1: Color(red: 0.56, green: 0.30, blue: 0.84),
             color2: Color(red: 0.52, green: 0.26, blue: 0.82),
-            grainOpacity: 0.05),
+            grainOpacity: 0.04),
 
         // Ch 5  Karma Sanyasa — Lilac + Seafoam
         VersePalette(id: 4,
@@ -445,15 +444,16 @@ extension Color {
         )
     }
 
-    /// Nudges yellow–green hues toward blue / violet for the bottom canvas glow.
+    /// Nudges sage / yellow-green hues toward blue for later chapters; keeps gold and orange intact.
     var coolVibrantAccent: Color {
         let ui = UIColor(self)
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         ui.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
         guard s > 0.04 else { return self }
 
-        let isYellowGreen = h >= 0.08 && h <= 0.48
-        if isYellowGreen {
+        // Preserve red, orange, and gold (ch 1–3); only cool down greenish yellows.
+        let isShiftableYellowGreen = h >= 0.22 && h <= 0.48
+        if isShiftableYellowGreen {
             let target: CGFloat = h < 0.28 ? 0.58 : 0.72
             h = h * 0.25 + target * 0.75
             s = min(1, s * 1.08)
