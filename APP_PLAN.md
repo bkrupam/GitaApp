@@ -93,3 +93,6 @@ Start after Phase 1 content (ch 5–18) and Phase 2 device polish.
 
 - 2026-05-22: Created plan from app audit.
 - 2026-05-22: Phase 1 (except ch 5–18 data): fixed mood verse IDs; added `VerseDataValidator`, `GeminiClient`, `GeminiCurationService`; aligned free-text chat UX; learn-more with verse context; removed demo delays; improved error messages. Verified `validate_verses.py` OK and simulator build succeeded.
+- 2026-05-24: Verse home + mood results visual refresh — dark-to-vibrant chapter canvas (`VerseBackgroundView`), frosted verse cards (`FrostedChrome`), white chrome on canvas (tab bar, progress, chapter menu). Simulator build succeeded (iPhone 17).
+- 2026-05-24: Softened the verse home top chrome — clear Liquid Glass tab track, lighter header tint, and gentler scroll fade so the navigation blends into the canvas. Verified with simulator build (`iPhone 17 Pro`).
+- 2026-05-24: Neutralized the verse tab track tint and adjusted card sizing/fades so previous and next cards are more visible. Verified with simulator build (`iPhone 17 Pro`).

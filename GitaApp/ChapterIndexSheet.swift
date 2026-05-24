@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Chapter picker — light sheet over the dark verse canvas (readable list, standard iOS pattern).
 struct ChapterIndexSheet: View {
     @EnvironmentObject private var viewModel: GitaViewModel
     @Binding var isPresented: Bool
@@ -16,7 +17,7 @@ struct ChapterIndexSheet: View {
             ScrollViewReader { proxy in
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack(spacing: 0) {
-                        ForEach(Array(sortedChapters.enumerated()), id: \.element) { index, chapter in
+                        ForEach(sortedChapters, id: \.self) { chapter in
                             chapterRow(chapter)
                             Divider()
                         }
@@ -31,15 +32,16 @@ struct ChapterIndexSheet: View {
                 }
             }
         }
+        .background(Color(uiColor: .systemGroupedBackground))
+        .preferredColorScheme(.light)
     }
 
     // MARK: - Header
 
     private var sheetHeader: some View {
         HStack(alignment: .center, spacing: 16) {
-            // Portrait book cover
             RoundedRectangle(cornerRadius: 5, style: .continuous)
-                .fill(Color.orange.opacity(0.15))
+                .fill(Color.orange.opacity(0.12))
                 .frame(width: 44, height: 58)
                 .overlay(
                     Image(systemName: "book.closed.fill")
@@ -58,35 +60,19 @@ struct ChapterIndexSheet: View {
 
             Spacer()
 
-            dismissButton
-        }
-        .padding(.horizontal, 24)
-        .padding(.top, 24)
-        .padding(.bottom, 20)
-    }
-
-    @ViewBuilder
-    private var dismissButton: some View {
-        if #available(iOS 26, *) {
             Button { isPresented = false } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(.secondary)
                     .frame(width: 32, height: 32)
-            }
-            .buttonStyle(.plain)
-            .glassEffect(in: .circle)
-        } else {
-            Button { isPresented = false } label: {
-                Image(systemName: "xmark")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(.secondary)
-                    .frame(width: 32, height: 32)
-                    .background(.ultraThinMaterial)
+                    .background(Color(uiColor: .secondarySystemFill))
                     .clipShape(Circle())
             }
             .buttonStyle(.plain)
         }
+        .padding(.horizontal, 24)
+        .padding(.top, 24)
+        .padding(.bottom, 20)
     }
 
     // MARK: - Chapter row
@@ -103,8 +89,8 @@ struct ChapterIndexSheet: View {
         } label: {
             HStack {
                 Text("Chapter \(chapter)")
-                    .font(.system(size: 17, weight: .semibold))
-                    .foregroundStyle(isCurrent ? .primary : .primary)
+                    .font(.system(size: 17, weight: isCurrent ? .bold : .semibold))
+                    .foregroundStyle(.primary)
                 Spacer()
                 Text("\(verses.count) verses")
                     .font(.system(size: 15))
@@ -115,6 +101,7 @@ struct ChapterIndexSheet: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 16)
+            .background(isCurrent ? Color(uiColor: .tertiarySystemFill) : Color.clear)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

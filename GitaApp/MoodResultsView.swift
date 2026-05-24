@@ -3,9 +3,6 @@ import SwiftUI
 struct MoodResultsView: View {
     @EnvironmentObject private var gitaVM: GitaViewModel
     @Environment(\.dismiss) private var dismiss
-    @Namespace private var resultsHeaderChrome
-    @Namespace private var resultsProgressChrome
-
     // nil when results come from free-text (no specific Mood object).
     let mood: Mood?
     let label: String
@@ -66,6 +63,8 @@ struct MoodResultsView: View {
                 .padding(.top, 10)
                 .padding(.bottom, 16)
         }
+        .gitaVerseCanvasFrost()
+        .preferredColorScheme(.light)
         .background {
             VerseBackgroundView(palette: resultsPalette)
                 .ignoresSafeArea()
@@ -81,39 +80,34 @@ struct MoodResultsView: View {
     // MARK: - Header row
 
     private var headerRow: some View {
-        GitaChrome.glassEffectGroup(spacing: 20) {
-            ZStack {
+        ZStack {
                 moodPill
                 HStack {
                     Button { dismiss() } label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 14, weight: .semibold))
                             .symbolRenderingMode(.monochrome)
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(Color.white)
                             .frame(width: 36, height: 36)
-                            .gitaHeaderCircleGlass(
-                                glassID: "resultsBackOrb",
-                                glassNamespace: resultsHeaderChrome
-                            )
+                            .background(Circle().fill(VersePalette.posterInk))
                     }
                     .buttonStyle(.plain)
                     Spacer()
                 }
                 .padding(.horizontal, 20)
             }
-        }
     }
 
     private var moodPill: some View {
         Text(label)
             .font(.system(size: 14, weight: .semibold, design: .rounded))
-            .foregroundStyle(.primary)
+            .foregroundStyle(VersePalette.posterInk)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .gitaHeaderCapsuleGlass(
-                glassID: "resultsTitleCapsule",
-                glassNamespace: resultsHeaderChrome
-            )
+            .background {
+                Capsule(style: .continuous)
+                    .strokeBorder(VersePalette.posterInk.opacity(0.18), lineWidth: 0.8)
+            }
             .animation(.spring(response: 0.35, dampingFraction: 0.8), value: label)
             .accessibilityLabel(
                 mood.map { "Curated verses for when you feel \($0.label)" } ?? label
@@ -139,19 +133,15 @@ struct MoodResultsView: View {
             if verses.isEmpty {
                 Text("No verses matched — try another mood or phrase")
                     .font(.system(size: 13, weight: .regular, design: .rounded))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(VersePalette.posterInkMuted)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 24)
             } else {
                 Text("\(currentIndex + 1) of \(verses.count)")
                     .font(.system(size: 13, weight: .regular, design: .rounded))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(VersePalette.posterInkFaint)
                     .contentTransition(.numericText())
                     .animation(.spring(response: 0.4, dampingFraction: 0.8), value: currentIndex)
-                    .gitaProgressCaptionGlass(
-                        glassID: "resultsProgressChip",
-                        glassNamespace: resultsProgressChrome
-                    )
             }
         }
     }

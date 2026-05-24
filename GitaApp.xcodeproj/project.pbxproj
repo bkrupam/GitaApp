@@ -32,6 +32,7 @@
 		EB000000000000000000001B /* GeminiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB000000000000000000001B /* GeminiConfig.swift */; };
 		EC000000000000000000001C /* GeminiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC000000000000000000001C /* GeminiClient.swift */; };
 		ED000000000000000000001D /* VerseDataValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD000000000000000000001D /* VerseDataValidator.swift */; };
+		EE000000000000000000001E /* FrostedChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE000000000000000000001E /* FrostedChrome.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		FB000000000000000000001B /* GeminiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiConfig.swift; sourceTree = "<group>"; };
 		FC000000000000000000001C /* GeminiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiClient.swift; sourceTree = "<group>"; };
 		FD000000000000000000001D /* VerseDataValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseDataValidator.swift; sourceTree = "<group>"; };
+		FE000000000000000000001E /* FrostedChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrostedChrome.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				AF000000000000000000000F /* ChatView.swift */,
 				BA000000000000000000000A /* MoodResultsView.swift */,
 				BB000000000000000000000B /* HeaderGlass.swift */,
+				FE000000000000000000001E /* FrostedChrome.swift */,
 				BC000000000000000000000C /* TopTabBar.swift */,
 				BD000000000000000000000D /* RootTabView.swift */,
 				BE000000000000000000000E /* AppCoordinator.swift */,
@@ -215,6 +218,7 @@
 				EB000000000000000000001B /* GeminiConfig.swift in Sources */,
 				EC000000000000000000001C /* GeminiClient.swift in Sources */,
 				ED000000000000000000001D /* VerseDataValidator.swift in Sources */,
+				EE000000000000000000001E /* FrostedChrome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

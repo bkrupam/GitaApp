@@ -45,6 +45,8 @@ struct CardView: View {
     // Spring used for the flip — feels satisfying and physical
     private let flipSpring = Animation.spring(response: 0.55, dampingFraction: 0.72)
 
+    private var palette: VersePalette { item.palette }
+
     var body: some View {
         ZStack {
             // Back face — starts rotated 180° (hidden behind front)
@@ -55,13 +57,12 @@ struct CardView: View {
             CardFrontView(item: item)
                 .modifier(FlipSide(rotation: isFlipped ? -180 : 0))
         }
-        // Shadow lives on the container so it never flickers during the flip
-        .shadow(color: .black.opacity(0.05), radius: 20, x: 0, y: 10)
-        // Explicit hit area so the whole card surface is tappable
-        .contentShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+        .shadow(color: Color.black.opacity(isActive ? 0.07 : 0.04), radius: isActive ? 32 : 22, x: 0, y: isActive ? 14 : 9)
+        .shadow(color: palette.pastelCardShadow.opacity(isActive ? 1 : 0.6), radius: 12, x: 0, y: 4)
+        .contentShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
         // Scale non-active cards down slightly for depth effect
-        .scaleEffect(isActive ? 1.0 : 0.93)
-        .opacity(isActive ? 1.0 : 0.65)
+        .scaleEffect(isActive ? 1.0 : 0.94)
+        .opacity(isActive ? 1.0 : 0.88)
         .animation(.spring(response: 0.4, dampingFraction: 0.82), value: isActive)
         .onTapGesture {
             guard isActive else { return }

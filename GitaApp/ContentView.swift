@@ -3,15 +3,17 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var viewModel: GitaViewModel
     @EnvironmentObject private var coordinator: AppCoordinator
+    private let cardHeightRatio: CGFloat = 0.74
+    private let topFadeHeight: CGFloat = 36
+    private let fadeHeight: CGFloat = 44
     @Namespace private var homeChrome
-    private let fadeHeight: CGFloat = 48
     @State private var showingIndex = false
 
     var body: some View {
         VStack(spacing: 0) {
             // ── Main scroll area ──────────────────────────────
             GeometryReader { geo in
-                let cardH  = geo.size.height * 0.80
+                let cardH  = geo.size.height * cardHeightRatio
                 let margin = (geo.size.height - cardH) / 2
 
                 ScrollViewReader { proxy in
@@ -81,6 +83,7 @@ struct ContentView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(20)
+                .presentationBackground(Color(uiColor: .systemGroupedBackground))
         }
     }
 
@@ -110,7 +113,7 @@ struct ContentView: View {
     private var edgeFadeMask: some View {
         VStack(spacing: 0) {
             LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
-                .frame(height: 22)
+                .frame(height: topFadeHeight)
             Rectangle().fill(Color.black)
             LinearGradient(colors: [.black, .clear], startPoint: .top, endPoint: .bottom)
                 .frame(height: fadeHeight)
@@ -122,7 +125,8 @@ struct ContentView: View {
     private var progressLabel: some View {
         Text("\(viewModel.progressPercent)% completed")
             .font(.system(size: 13, weight: .regular, design: .rounded))
-            .foregroundStyle(Color.primary.opacity(0.4))
+            .tracking(0.3)
+            .foregroundStyle(VersePalette.posterInkMuted)
             .contentTransition(.numericText())
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.progressPercent)
     }

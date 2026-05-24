@@ -14,10 +14,87 @@ struct VersePalette: Identifiable {
     /// Neutral fallback (e.g. mood results, previews).
     static let base = Color(red: 0.958, green: 0.962, blue: 0.972)
 
-    var softFog: Color { color1.mix(with: baseTint, by: 0.12) }
-    var deepFog: Color { color2.mix(with: baseTint, by: 0.12) }
+    var softFog: Color { color1.blended(with: baseTint, fraction: 0.12) }
+    var deepFog: Color { color2.blended(with: baseTint, fraction: 0.12) }
 
     var onPaletteText: Color { .primary }
+
+    // MARK: Dark → vibrant canvas (verse browsing)
+
+    /// Pure near-black at the very top.
+    static let canvasTop = Color(red: 0.04, green: 0.04, blue: 0.07)
+
+    /// Mid-screen: chapter hue, heavily mixed with dark so transition is subtle.
+    var canvasMid: Color {
+        color2.coolVibrantAccent.blended(with: Self.canvasTop, fraction: 0.82)
+    }
+
+    /// Bottom: chapter hue but still quite dark — blends with the overall dark canvas.
+    var canvasBottom: Color {
+        color2.coolVibrantAccent.blended(with: Self.canvasTop, fraction: 0.45)
+    }
+
+    /// Frost on cards — same family as the canvas, slightly lifted for readability.
+    var cardFrostTint: Color {
+        canvasBottom.blended(with: canvasMid, fraction: 0.35)
+    }
+
+    /// Type on cards — soft white with a hint of chapter hue (not flat #FFF).
+    var cardPrimaryText: Color {
+        Color.white.blended(with: cardFrostTint, fraction: 0.14)
+    }
+
+    var cardSecondaryText: Color {
+        Color.white.blended(with: cardFrostTint, fraction: 0.22).opacity(0.58)
+    }
+
+    var cardLabelText: Color {
+        Color.white.blended(with: cardFrostTint, fraction: 0.16).opacity(0.52)
+    }
+
+    /// CH · V chip — needs more contrast than section labels.
+    var cardChipText: Color {
+        Color.white.blended(with: cardFrostTint, fraction: 0.08).opacity(0.82)
+    }
+
+    // MARK: Calm pastel poster (eSIM-style — monochromatic tiers, no white cards)
+
+    /// Shared near-white base — never pure #FFF on screen or card.
+    private static let pastelCanvasBase = Color(red: 0.976, green: 0.978, blue: 0.984)
+
+    /// Outermost screen — faintest chapter whisper (~3–5% mix).
+    var pastelBackground: Color {
+        Self.pastelCanvasBase.blended(with: color1.coolVibrantAccent, fraction: 0.05)
+    }
+
+    /// Header / frame “well” behind the stack — richer same hue (~24% mix).
+    var pastelCanvasFrame: Color {
+        Self.pastelCanvasBase.blended(with: color1.coolVibrantAccent, fraction: 0.24)
+    }
+
+    /// Card face — tinted light panel (~10% mix), not white; sits on the frame layer.
+    var pastelCardSurface: Color {
+        Self.pastelCanvasBase.blended(with: color1.coolVibrantAccent, fraction: 0.10)
+    }
+
+    /// CH · V chip — one step richer than the card for legibility.
+    var pastelChipSurface: Color {
+        Self.pastelCanvasBase.blended(with: color1.coolVibrantAccent, fraction: 0.15)
+    }
+
+    var pastelChipBorder: Color {
+        color2.coolVibrantAccent.opacity(0.18)
+    }
+
+    /// Soft shadow tint (chapter hue, not a stroke).
+    var pastelCardShadow: Color {
+        color2.coolVibrantAccent.opacity(0.12)
+    }
+
+    // Typography
+    static let posterInk      = Color(red: 0.08, green: 0.10, blue: 0.14)
+    static let posterInkMuted = Color(red: 0.08, green: 0.10, blue: 0.14).opacity(0.55)
+    static let posterInkFaint = Color(red: 0.08, green: 0.10, blue: 0.14).opacity(0.38)
 }
 
 // MARK: - Chapter Palettes
@@ -28,33 +105,33 @@ extension VersePalette {
 
     static let all: [VersePalette] = [
 
-        // Ch 1  Arjuna Vishada — Dusty rose + Sky
+        // Ch 1  Arjuna Vishada — grief, doubt → stormy plum (red-violet, not blue)
         VersePalette(id: 0,
-            baseTint: Color(red: 0.964, green: 0.958, blue: 0.972),
-            color1: Color(red: 0.82, green: 0.72, blue: 0.82),
-            color2: Color(red: 0.62, green: 0.74, blue: 0.88),
-            grainOpacity: 0.04),
+            baseTint: Color(red: 0.08, green: 0.05, blue: 0.10),
+            color1: Color(red: 0.48, green: 0.22, blue: 0.58),
+            color2: Color(red: 0.44, green: 0.18, blue: 0.54),
+            grainOpacity: 0.05),
 
-        // Ch 2  Sankhya Yoga — Lavender + Periwinkle
+        // Ch 2  Sankhya Yoga — clarity, the eternal → cool cobalt (cyan-blue, not violet)
         VersePalette(id: 1,
-            baseTint: Color(red: 0.956, green: 0.958, blue: 0.978),
-            color1: Color(red: 0.78, green: 0.72, blue: 0.90),
-            color2: Color(red: 0.58, green: 0.66, blue: 0.86),
-            grainOpacity: 0.04),
+            baseTint: Color(red: 0.04, green: 0.07, blue: 0.12),
+            color1: Color(red: 0.10, green: 0.58, blue: 0.92),
+            color2: Color(red: 0.06, green: 0.54, blue: 0.90),
+            grainOpacity: 0.05),
 
-        // Ch 3  Karma Yoga — Mint + Sage
+        // Ch 3  Karma Yoga — selfless action in the world → dark cerulean teal
         VersePalette(id: 2,
-            baseTint: Color(red: 0.946, green: 0.966, blue: 0.960),
-            color1: Color(red: 0.68, green: 0.84, blue: 0.78),
-            color2: Color(red: 0.52, green: 0.72, blue: 0.66),
-            grainOpacity: 0.04),
+            baseTint: Color(red: 0.04, green: 0.08, blue: 0.10),
+            color1: Color(red: 0.14, green: 0.62, blue: 0.72),
+            color2: Color(red: 0.10, green: 0.58, blue: 0.70),
+            grainOpacity: 0.05),
 
-        // Ch 4  Jnana Karma Sanyasa — Ice + Steel
+        // Ch 4  Jnana Yoga — fire of knowledge, renunciation → deep violet
         VersePalette(id: 3,
-            baseTint: Color(red: 0.946, green: 0.960, blue: 0.976),
-            color1: Color(red: 0.72, green: 0.82, blue: 0.90),
-            color2: Color(red: 0.48, green: 0.62, blue: 0.78),
-            grainOpacity: 0.04),
+            baseTint: Color(red: 0.08, green: 0.05, blue: 0.12),
+            color1: Color(red: 0.56, green: 0.30, blue: 0.84),
+            color2: Color(red: 0.52, green: 0.26, blue: 0.82),
+            grainOpacity: 0.05),
 
         // Ch 5  Karma Sanyasa — Lilac + Seafoam
         VersePalette(id: 4,
@@ -311,87 +388,76 @@ struct GrainOverlay: View {
     }
 }
 
-// MARK: - Drifting Fog Background (Option A)
-// Tinted chapter base + two soft colour clouds that drift diagonally.
-// Heavy blur removes hard edges; a centre vignette keeps the card zone calm.
+// MARK: - Calm pastel canvas
 
+/// eSIM-style canvas: pale edges, richer monochromatic “well” behind the cards.
 struct VerseBackgroundView: View {
     let palette: VersePalette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    /// Seconds for one full diagonal drift cycle.
-    private let cycleDuration = 15.0
 
     var body: some View {
         ZStack {
-            if reduceMotion {
-                fogLayer(time: 0)
-            } else {
-                TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { timeline in
-                    fogLayer(time: timeline.date.timeIntervalSinceReferenceDate)
-                }
-            }
-            GrainOverlay(opacity: palette.grainOpacity)
+            palette.pastelBackground
+
+            LinearGradient(
+                stops: [
+                    .init(color: palette.pastelCanvasFrame.opacity(0.54), location: 0),
+                    .init(color: palette.pastelCanvasFrame.opacity(0.78), location: 0.34),
+                    .init(color: palette.pastelBackground, location: 1),
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
         .ignoresSafeArea()
     }
+}
 
-    private func fogLayer(time: Double) -> some View {
-        GeometryReader { geo in
-            let blur = max(geo.size.width, geo.size.height) * 0.15
-            let t = time * (2 * Double.pi / cycleDuration)
+// MARK: - Color helpers
 
-            // Warm mist drifts SE; cool mist drifts NW — one slow diagonal pass.
-            let warmCenter = UnitPoint(
-                x: 0.04 + 0.30 * (0.5 + 0.5 * sin(t)),
-                y: 0.02 + 0.24 * (0.5 + 0.5 * sin(t + 0.35))
-            )
-            let coolCenter = UnitPoint(
-                x: 0.96 - 0.30 * (0.5 + 0.5 * sin(t)),
-                y: 0.98 - 0.24 * (0.5 + 0.5 * sin(t + 0.35))
-            )
 
-            ZStack {
-                palette.baseTint
+extension Color {
+    func blended(with other: Color, fraction: Double) -> Color {
+        let a = UIColor(self)
+        let b = UIColor(other)
+        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
+        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
+        a.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        b.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+        let t = CGFloat(min(max(fraction, 0), 1))
+        return Color(
+            red: Double(r1 + (r2 - r1) * t),
+            green: Double(g1 + (g2 - g1) * t),
+            blue: Double(b1 + (b2 - b1) * t),
+            opacity: Double(a1 + (a2 - a1) * t)
+        )
+    }
 
-                ZStack {
-                    EllipticalGradient(
-                        colors: [
-                            palette.softFog.opacity(0.78),
-                            palette.softFog.opacity(0.42),
-                            .clear,
-                        ],
-                        center: warmCenter,
-                        startRadiusFraction: 0,
-                        endRadiusFraction: 0.72
-                    )
+    func saturated(by factor: Double) -> Color {
+        let ui = UIColor(self)
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        ui.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        if s < 0.01 { return self }
+        return Color(
+            hue: Double(h),
+            saturation: Double(min(1, s * factor)),
+            brightness: Double(min(1, b * 1.04)),
+            opacity: Double(a)
+        )
+    }
 
-                    EllipticalGradient(
-                        colors: [
-                            palette.deepFog.opacity(0.74),
-                            palette.deepFog.opacity(0.38),
-                            .clear,
-                        ],
-                        center: coolCenter,
-                        startRadiusFraction: 0,
-                        endRadiusFraction: 0.70
-                    )
-                }
-                .blur(radius: blur)
+    /// Nudges yellow–green hues toward blue / violet for the bottom canvas glow.
+    var coolVibrantAccent: Color {
+        let ui = UIColor(self)
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        ui.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        guard s > 0.04 else { return self }
 
-                // Soft centre lift — keeps cards readable without killing edge colour.
-                EllipticalGradient(
-                    colors: [
-                        palette.baseTint.opacity(0.72),
-                        palette.baseTint.opacity(0.28),
-                        .clear,
-                    ],
-                    center: .center,
-                    startRadiusFraction: 0,
-                    endRadiusFraction: 0.46
-                )
-            }
+        let isYellowGreen = h >= 0.08 && h <= 0.48
+        if isYellowGreen {
+            let target: CGFloat = h < 0.28 ? 0.58 : 0.72
+            h = h * 0.25 + target * 0.75
+            s = min(1, s * 1.08)
         }
-        .ignoresSafeArea()
+        return Color(hue: Double(h), saturation: Double(s), brightness: Double(b), opacity: Double(a))
     }
 }
