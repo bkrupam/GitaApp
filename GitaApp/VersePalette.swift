@@ -242,6 +242,15 @@ extension VersePalette {
         grainOpacity: 0.04
     )
 
+    /// Mood / chat curated stacks — one neutral stone tone for canvas and every card.
+    static let curatedResults = VersePalette(
+        id: 201,
+        baseTint: Color(red: 0.958, green: 0.958, blue: 0.962),
+        color1: Color(red: 0.90, green: 0.90, blue: 0.91),
+        color2: Color(red: 0.82, green: 0.82, blue: 0.84),
+        grainOpacity: 0.03
+    )
+
     /// Cool, soothing palette for each mood's verse results screen.
     static func forMood(_ mood: Mood) -> VersePalette {
         switch mood.id {

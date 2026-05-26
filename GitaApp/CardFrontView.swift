@@ -3,13 +3,14 @@ import SwiftUI
 /// Calm pastel poster — soft chapter hue, dark serif headline, easy on the eyes.
 struct CardFrontView: View {
     let item: VerseItem
+    var palette: VersePalette? = nil
 
-    private var palette: VersePalette { item.palette }
+    private var resolvedPalette: VersePalette { palette ?? item.palette }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 32, style: .continuous)
-                .fill(palette.pastelCardSurface)
+                .fill(resolvedPalette.pastelCardSurface)
 
             VStack(alignment: .leading, spacing: 0) {
                 chapterChip
@@ -38,10 +39,10 @@ struct CardFrontView: View {
             .padding(.vertical, 6)
             .background {
                 Capsule(style: .continuous)
-                    .fill(palette.pastelChipSurface)
+                    .fill(resolvedPalette.pastelChipSurface)
                     .overlay {
                         Capsule(style: .continuous)
-                            .strokeBorder(palette.pastelChipBorder, lineWidth: 0.8)
+                            .strokeBorder(resolvedPalette.pastelChipBorder, lineWidth: 0.8)
                     }
             }
     }

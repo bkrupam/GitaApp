@@ -9,8 +9,10 @@ struct MoodResultsView: View {
     let verseIDs: [Int]
 
     @State private var currentVerseID: Int?
+    @Namespace private var resultsChrome
 
     private let fadeHeight: CGFloat = 48
+    private let curatedPalette = VersePalette.curatedResults
 
     // Filtered + ordered subset of the full verse list.
     private var verses: [VerseItem] {
@@ -23,10 +25,6 @@ struct MoodResultsView: View {
     private var currentIndex: Int {
         guard let id = currentVerseID else { return 0 }
         return verses.firstIndex { $0.id == id } ?? 0
-    }
-
-    private var resultsPalette: VersePalette {
-        mood.map { VersePalette.forMood($0) } ?? VersePalette.freeTextResults
     }
 
     var body: some View {
@@ -44,7 +42,8 @@ struct MoodResultsView: View {
                         ForEach(verses) { item in
                             CardView(
                                 item: item,
-                                isActive: item.id == currentVerseID
+                                isActive: item.id == currentVerseID,
+                                cardPalette: curatedPalette
                             )
                             .frame(maxWidth: .infinity)
                             .frame(height: cardH)
@@ -66,7 +65,7 @@ struct MoodResultsView: View {
         .gitaVerseCanvasFrost()
         .preferredColorScheme(.light)
         .background {
-            VerseBackgroundView(palette: resultsPalette)
+            VerseBackgroundView(palette: curatedPalette)
                 .ignoresSafeArea()
         }
         .toolbar(.hidden, for: .navigationBar)
@@ -80,22 +79,27 @@ struct MoodResultsView: View {
     // MARK: - Header row
 
     private var headerRow: some View {
-        ZStack {
+        GitaChrome.glassEffectGroup(spacing: 12) {
+            ZStack {
                 moodPill
                 HStack {
                     Button { dismiss() } label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 14, weight: .semibold))
                             .symbolRenderingMode(.monochrome)
-                            .foregroundStyle(Color.white)
+                            .foregroundStyle(VersePalette.posterInk)
                             .frame(width: 36, height: 36)
-                            .background(Circle().fill(VersePalette.posterInk))
+                            .gitaHeaderCircleGlass(
+                                glassID: "curatedBackOrb",
+                                glassNamespace: resultsChrome
+                            )
                     }
                     .buttonStyle(.plain)
                     Spacer()
                 }
                 .padding(.horizontal, 20)
             }
+        }
     }
 
     private var moodPill: some View {
@@ -104,10 +108,10 @@ struct MoodResultsView: View {
             .foregroundStyle(VersePalette.posterInk)
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .background {
-                Capsule(style: .continuous)
-                    .strokeBorder(VersePalette.posterInk.opacity(0.18), lineWidth: 0.8)
-            }
+            .gitaHeaderCapsuleGlass(
+                glassID: "curatedMoodPill",
+                glassNamespace: resultsChrome
+            )
             .animation(.spring(response: 0.35, dampingFraction: 0.8), value: label)
             .accessibilityLabel(
                 mood.map { "Curated verses for when you feel \($0.label)" } ?? label

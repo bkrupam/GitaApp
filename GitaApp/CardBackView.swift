@@ -3,14 +3,15 @@ import SwiftUI
 /// Calm pastel back of the card — sanskrit, scene, takeaway, learn-more action.
 struct CardBackView: View {
     let item: VerseItem
+    var palette: VersePalette? = nil
     let onAskMore: () -> Void
 
-    private var palette: VersePalette { item.palette }
+    private var resolvedPalette: VersePalette { palette ?? item.palette }
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 32, style: .continuous)
-                .fill(palette.pastelCardSurface)
+                .fill(resolvedPalette.pastelCardSurface)
 
             VStack(spacing: 0) {
                 scrollContent

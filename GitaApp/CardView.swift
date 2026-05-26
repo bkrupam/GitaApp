@@ -38,6 +38,8 @@ private struct FlipSide: AnimatableModifier {
 struct CardView: View {
     let item: VerseItem
     let isActive: Bool
+    /// When set (e.g. curated mood results), all cards share this palette instead of per-verse hues.
+    var cardPalette: VersePalette? = nil
     var onAskMore: () -> Void = {}
 
     @State private var isFlipped = false
@@ -45,16 +47,16 @@ struct CardView: View {
     // Spring used for the flip — feels satisfying and physical
     private let flipSpring = Animation.spring(response: 0.55, dampingFraction: 0.72)
 
-    private var palette: VersePalette { item.palette }
+    private var palette: VersePalette { cardPalette ?? item.palette }
 
     var body: some View {
         ZStack {
             // Back face — starts rotated 180° (hidden behind front)
-            CardBackView(item: item, onAskMore: onAskMore)
+            CardBackView(item: item, palette: palette, onAskMore: onAskMore)
                 .modifier(FlipSide(rotation: isFlipped ? 0 : 180))
 
             // Front face — starts at 0° (facing viewer)
-            CardFrontView(item: item)
+            CardFrontView(item: item, palette: palette)
                 .modifier(FlipSide(rotation: isFlipped ? -180 : 0))
         }
         .shadow(color: Color.black.opacity(isActive ? 0.07 : 0.04), radius: isActive ? 32 : 22, x: 0, y: isActive ? 14 : 9)
